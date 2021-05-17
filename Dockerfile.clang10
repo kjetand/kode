@@ -1,0 +1,12 @@
+FROM ubuntu
+RUN apt update && apt -y install cmake clang-10 libglu1-mesa-dev freeglut3-dev mesa-common-dev libfreetype6-dev libxrandr-dev
+
+COPY . /usr/src/
+WORKDIR /usr/src/
+
+RUN export CXX=/usr/bin/clang++-10 \
+ && mkdir build \
+ && cd build \
+ && cmake .. \
+ && make -j 24 \
+ && ctest -V
